@@ -17,15 +17,17 @@ db.Avaliacao.belongsTo(db.Usuario);
 db.Artigo.belongsToMany(db.Usuario, {through: db.AutorArtigo});
 module.exports = db;
 
-db.Usuario.create({
-  nome: 'admin',
-  login: 'admin',
-  senha: '123',
-  tipoUsuario: 'administrador'
-});
-
 sequelize.sync()
     .then(async () => {
-      console.log("ok");
-})
-.catch(err => console.log('Erro ao sincronizar o banco de dados:', err));
+      console.log("Banco de dados sincronizado com sucesso.");
+
+      await db.Usuario.create({
+        nome: 'admin',
+        login: 'admin',
+        senha: '123',
+        tipoUsuario: 'administrador'
+      });
+
+      console.log("Usuário criado com sucesso.");
+    })
+    .catch(err => console.log('Erro ao sincronizar o banco de dados:', err));
