@@ -1,0 +1,79 @@
+<head>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        #deleteBTN {
+            background-color: #dc3545; 
+        }
+
+        #deleteBTN:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<table border="1px">
+    <tr>
+        <td>Nome</td>
+        <td>Login</td>
+        <td>Senha</td>
+        <td>Tipo</td>
+        <td>Ações</td>
+    </tr>
+    {{#each usuarios}}
+    <tr>
+        <td>{{nome}}</td>
+        <td>{{login}}</td>
+        <td>{{senha}}</td>
+        <td>{{tipoUsuario}}</td>
+        <td>
+            <a class="btn" href="/usuarioEdit/{{id}}">Editar</a> |
+            <a id="deleteBTN" class="btn" href="#" onclick="deleteUsuario({{id}}); return false;">Deletar</a>
+        </td>
+    </tr>
+    {{/each}}
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+function deleteUsuario(id) {
+    if (confirm('Tem certeza que deseja deletar este usuário?')) {
+        $.ajax({
+            url: '/usuarioDelete/' + id,
+            type: 'DELETE',
+            success: function(result) {
+                if (result.message === 'Usuário deletado com sucesso') {
+                    window.location.reload(true);
+                } else {
+                    alert(result.message);
+                }
+            }
+        });
+    }
+}
+</script>

@@ -1,0 +1,60 @@
+<head>
+    <style>
+        form {
+            width: 50%; 
+            margin: 0 auto; 
+            padding: 20px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+        }
+
+        input[type="text"],
+        input[type="password"],
+        select {
+            width: 100%; 
+            padding: 10px; 
+            margin-bottom: 10px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px;
+            box-sizing: border-box; 
+        }
+
+        select {
+            appearance: none; 
+            -webkit-appearance: none; 
+            -moz-appearance: none; 
+            background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23000" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>') no-repeat right 10px center; /* Adicione uma seta personalizada ao select */
+            background-size: 24px 24px; 
+        }
+
+        input[type="submit"] {
+            background-color: #007bff; 
+            color: #fff; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3; 
+        }
+    </style>
+</head>
+
+<form action="/usuarioEdit/{{usuario.id}}" method="post">
+    Nome: <input type="text" name="nome" value="{{usuario.nome}}">
+    <br> <br>
+    Login: <input type="text" name="login" value="{{usuario.login}}">
+    <br> <br>
+    Senha: <input type="password" name="senha" value="{{usuario.senha}}">
+    <br><br>
+    Tipo de Usuário:
+    <select name="tipoUsuario">
+        <option value="autor" {{#eq usuario.tipoUsuario 'autor'}}selected{{/eq}}>Autor</option>
+        <option value="avaliador" {{#eq usuario.tipoUsuario 'avaliador'}}selected{{/eq}}>Avaliador</option>
+        <option value="administrador" {{#eq usuario.tipoUsuario 'administrador'}}selected{{/eq}}>Administrador</option>
+    </select>
+    <br><br>
+    <input type="submit" value="Salvar">
+</form>

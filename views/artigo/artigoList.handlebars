@@ -1,0 +1,100 @@
+<head>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #editar, #deletar, #avaliador, #avaliar {
+            display: inline-block;
+            padding: 8px 16px;
+            margin-right: 5px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #editar:hover, #deletar:hover, #avaliador:hover, #avaliar:hover {
+            background-color: #0056b3;
+        }
+
+        #deletar {
+            background-color: #dc3545;
+        }
+
+        #deletar:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+function deleteArtigo(id) {
+    if (confirm('Tem certeza que deseja deletar este artigo?')) {
+        $.ajax({
+            url: '/artigoDelete/' + id,
+            type: 'DELETE',
+            success: function(result) {
+                window.location.reload(true);
+            }
+        });
+    }
+}
+</script>
+<table border="1px">
+    <tr>
+        <td>Titulo</td>
+        <td>Resumo</td>
+        <td>Link</td>
+        <td>Autores</td>
+        <td>Status</td>
+        <td>Nota</td>
+        <td>Ações</td>
+    </tr>
+{{#each artigos}}
+<tr>
+        <td>{{titulo}}</td>
+        <td>{{resumo}}</td>
+        <td>{{linkPDF}}</td>
+        <td>
+            {{#each usuarios}}
+                {{nome}}<br>
+            {{/each}}
+        </td>
+        <td>{{status}}</td>
+         <td>
+            {{#each avaliacaos}}
+                {{notaFinal}}<br>
+            {{/each}}
+        </td>
+        <td>
+             {{#if ../administrador}}
+            <a id="deletar" href="#" onclick="deleteArtigo({{id}}); return false;">Deletar</a> |
+            <a id="avaliar" href="/atribuirAvaliador/{{id}}">Atribuir Avaliador</a> |
+            {{/if}}
+
+            {{#if ../autor}}
+            <a id="editar" href="/artigoEdit/{{id}}">Editar</a> |
+            <a id="deletar" href="#" onclick="deleteArtigo({{id}}); return false;">Deletar</a> |
+            {{/if}}
+
+            {{#if ../avaliador}}
+            <a id="avaliar" href="/editarAvaliacao/{{id}}">Avaliar</a>
+            {{/if}}
+        </td>
+    </tr>
+    {{/each}}
+</table>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif; 
+            background-color: #f8f9fa; 
+            margin: 0;
+            padding: 0; 
+        }
+
+        center {
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            justify-content: flex-start; 
+            height: 100vh;
+        }
+
+        h1 {
+            color: #000; 
+            margin-bottom: 20px; 
+        }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 10px; 
+        }
+
+        button {
+            background-color: #007bff; 
+            color: #fff; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            text-decoration: none; 
+            transition: background-color 0.3s; 
+            width: 200px; 
+            text-align: center; 
+        }
+
+        button:hover {
+            background-color: #0056b3; 
+        }
+    </style>
+    <title>Sistema de Avaliação de Artigos</title>
+</head>
+<body>
+    <center>
+        <h1>Sistema de avaliação de artigos</h1>
+        <div class="button-container">
+            {{#if administrador}}
+            <a href="usuarioCreate">
+                <button>Cadastrar usuário</button>
+            </a>
+            <a href="usuarioList">
+                <button>Listar usuários</button>
+            </a>
+            {{/if}}
+            {{#if autor}}
+            <a href="artigoCreate">
+                <button>Criar artigo</button>
+            </a>
+            {{/if}}
+            <a href="artigoList">
+                <button>Listar artigos</button>
+            </a>
+            <a href="/logout"><button>Logout</button></a>
+            <br><br>
+        </div>
+        <br><br>
+        {{{body}}}
+    </center>
+</body>
+</html>

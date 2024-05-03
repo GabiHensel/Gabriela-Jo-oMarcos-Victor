@@ -1,0 +1,90 @@
+<style>
+    select[name="autores"] {
+        width: 100%; 
+    }
+     body {
+        font-family: Arial, sans-serif; 
+        margin: 0; 
+        padding: 0; 
+        background-color: #f5f5f5; 
+    }
+
+        form {
+        width: 50%;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+    input[type="checkbox"] {
+        display: inline-block; 
+        margin-right: 5px; 
+    }
+
+    label {
+        display: inline-block; 
+    }
+
+    input[type="text"], select {
+        width: calc(100% - 22px);
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        display: block;
+        width: calc(100% - 22px);
+        transition: background-color 0.3s;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .error-message {
+        color: #dc3545;
+        margin-top: 10px;
+    }
+</style>
+
+<form action="/artigoCreate" method="post" id="artigoForm">
+    Titulo: <input type="text" name="titulo">
+    <br> <br>
+    Resumo: <input type="text" name="resumo">
+    <br> <br>
+    Link: <input type="text" name="linkPDF">
+    <br><br>
+    Autores:
+    <br><br>
+    {{#each usuarios}}
+        <input type="checkbox" class="autor-checkbox" name="autores" value="{{id}}">{{nome}}<br>
+    {{/each}}
+    <br><br>
+    <input type="submit" value="adicionar">
+</form>
+
+<script>
+    var checkboxes = document.querySelectorAll('.autor-checkbox');
+
+    var form = document.getElementById('artigoForm');
+
+    form.addEventListener('submit', function(event) {
+        var checkedCount = Array.from(checkboxes).filter(i => i.checked).length;
+
+        if (checkedCount < 1 || checkedCount > 5) {
+            event.preventDefault();
+            alert('Você deve selecionar entre 1 e 5 autores');
+        }
+    });
+</script>

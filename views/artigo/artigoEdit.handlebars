@@ -1,0 +1,62 @@
+<head>
+    <style>
+        form {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        label {
+            display: inline-block; 
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 20px); 
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="checkbox"] {
+            display: inline-block; 
+            margin-right: 5px; 
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<form action="/artigoEdit/{{artigo.id}}" method="post">
+    Titulo: <input type="text" name="titulo" value="{{artigo.titulo}}">
+    <br> <br>
+    Resumo: <input type="text" name="resumo" value="{{artigo.resumo}}">
+    <br> <br>
+    Link: <input type="text" name="linkPDF" value="{{artigo.linkPDF}}">
+    <br><br>
+    Autores:
+    {{#each usuarios}}
+        <input type="checkbox" name="autores" value="{{id}}" {{#if (includes artigo.usuarios this)}}checked{{/if}}>{{nome}}<br>
+    {{/each}}
+    <br><br>
+    <input type="submit" value="Salvar">
+</form>
